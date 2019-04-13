@@ -72,9 +72,9 @@ with con:
         users[i] = ". ".join(str(x) for x in users[i])
 
 ################# Main Window Elements #####################
-app = App(title="Face Detection and Recognization", width="800")
+app = App(title="Face Detection and Recognition", width="800")
 titleBox = Box(app, width="fill", align="top")
-pageTitle = Text(titleBox, text="Welcome to Face Detection and Recognization Project", color="blue", size=20)
+pageTitle = Text(titleBox, text="Welcome to Face Detection and Recognition Project", color="blue", size=20)
 userEntryBtn = PushButton(app, command=showUserEntryWin, text="Add New User")
 userEntryBtn.bg = "red"
 userEntryBtn.text_size = 15
