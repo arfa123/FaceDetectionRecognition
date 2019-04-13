@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 import sqlite3 as lite
 from paths import getHaarcascadePath
 from lock import openLock
@@ -13,8 +14,6 @@ def faceRecognizer():
     font = cv2.FONT_HERSHEY_SIMPLEX
     #iniciate id counter
     id = 0
-    # names related to ids: example ==> Marcelo: id=1,  etc
-    #names = ['None', 'Arfa', 'Paula', 'Ilza', 'Z', 'W', 'Ahmed'] 
     # Initialize and start realtime video capture
     cam = cv2.VideoCapture(0)
     cam.set(3, 640) # set video widht
@@ -22,9 +21,10 @@ def faceRecognizer():
     # Define min window size to be recognized as a face
     minW = 0.1*cam.get(3)
     minH = 0.1*cam.get(4)
+    startTime = time.time()
     while True:
         recogPercent = None
-        ret, img =cam.read()
+        ret, img = cam.read()
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale( 
             gray,
@@ -58,6 +58,8 @@ def faceRecognizer():
         cv2.imshow('camera',img)
         if(recogPercent != None and recogPercent > 50):
             openLock()
+            break
+        if(time.time() - startTime > 30):
             break
         k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
         if k == 27:
